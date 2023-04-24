@@ -170,6 +170,10 @@ def data_description():
  
 
 def admin_page():
+    if 'present' not in st.session_state.keys():
+        set(1)
+        st.experimental_rerun()
+
     if 'password' in st.session_state.keys() and st.session_state['password'] == password:
 
         menu = ['Draw Images','Display Images', 'Data Description']
@@ -192,6 +196,7 @@ def admin_page():
 def page_1():
     
     st.title('digit dataset')
+    st.session_state['present'] = 1
     
     with st.form(key='my_form'):
         menu = ['--select--','guest','admin']
@@ -212,6 +217,10 @@ def page_1():
 
 
 def page_2():
+    if 'present' not in st.session_state.keys():
+        set(1)
+        st.experimental_rerun()
+    
     menu = ['Display Images', 'Data Description']
     choice = st.sidebar.selectbox('Select an option',menu)
 
@@ -225,6 +234,10 @@ def page_2():
         st.experimental_rerun()
 
 def page_3():
+    if 'present' not in st.session_state.keys():
+        set(1)
+        st.experimental_rerun()
+        
     set(3)
     st.title('Admin')
 
