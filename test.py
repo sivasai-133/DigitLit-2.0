@@ -33,11 +33,13 @@ def page_3():
     set(3)
     st.title('admin')
 
-    user = st.secrets['db_username']
-    password = st.secrets['db_password']
 
     print(st.secrets)
     print(st.secrets.keys())
+
+    user = st.secrets['db_username']
+    password = st.secrets['db_password']
+
 
     with st.form(key='my_form'):
         text_input = st.text_input(label='Enter username')
