@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 from page import get,set
+from flag import get_,set_
 # Read the requirements.txt file
 # Need to run only when reboot is done
 
