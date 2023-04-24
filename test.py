@@ -61,15 +61,16 @@ def page_3():
         password_input = st.text_input(label='Enter password',type='password')
         submit_button = st.form_submit_button(label='Submit')
 
+    if st.button('Return to Main Page'):
+        set(1)
+        st.experimental_rerun()
+
     if submit_button:
         if text_input == user and password_input == password:
             st.success('Login successful')
         else:
             st.error('Login unsuccessful')
 
-    if st.button('Return to Main Page'):
-        set(1)
-        st.experimental_rerun()
 
 def page_manager():
     if (get() == 1):
