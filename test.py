@@ -23,6 +23,7 @@ import io
 import base64
 
 cur = os.getcwd()
+password = os.environ['db_password']
 
 # Define a function to validate the input value
 def validate_input(value):
@@ -169,21 +170,24 @@ def data_description():
  
 
 def admin_page():
-    menu = ['Draw Images','Display Images', 'Data Description']
-    choice = st.sidebar.selectbox('Select an option',menu)
+    if st.session_state['password'] == 'password':
 
-    if choice == 'Display Images':
-        display_images()
-    elif choice == 'Draw Images':
-        draw_images()
+        menu = ['Draw Images','Display Images', 'Data Description']
+        choice = st.sidebar.selectbox('Select an option',menu)
+
+        if choice == 'Display Images':
+            display_images()
+        elif choice == 'Draw Images':
+            draw_images()
+        else:
+            data_description()
+
+        if st.button('Return to Main Page',key = 'return2'):
+            set(1)
+            st.experimental_rerun()
     else:
-        data_description()
-
-    if st.button('Return to Main Page',key = 'return2'):
         set(1)
         st.experimental_rerun()
-
-    st.on_session_state(set,1)
 
 def page_1():
     
@@ -224,7 +228,9 @@ def page_3():
     set(3)
     st.title('Admin')
 
-    password = os.environ['db_password']
+    
+
+    st.session_state['password'] = password
 
     if st.button('Return to Main Page',key = 'return'):
         set(1)
