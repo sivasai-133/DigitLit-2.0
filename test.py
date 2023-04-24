@@ -193,9 +193,6 @@ def page_1():
 
 
 def page_2():
-    set(2)
-    st.title('guest')
-
     menu = ['Display Images', 'Data Description']
     choice = st.sidebar.selectbox('Select an option',menu)
 
