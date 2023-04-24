@@ -163,8 +163,7 @@ def data_description():
     sorted_counts = sorted(subfolder_counts.items(), key=lambda x: int(x[0]))
 
     # Display the results in a Streamlit table
-    st.write("## Image Counts by Subfolder")
-    table_data = [{"Subfolder": subfolder_name, "Image Count": image_count} for subfolder_name, image_count in sorted_counts]
+    table_data = [{"Number": subfolder_name, "Image Count": image_count} for subfolder_name, image_count in sorted_counts]
     st.table(table_data)
     st.write(f"Total Images: {total_count}")
  
@@ -207,8 +206,7 @@ def page_2():
 
 def page_3():
     set(3)
-    st.title('admin')
-
+    st.title('Admin')
 
     print(st.secrets)
     print(st.secrets.keys())
