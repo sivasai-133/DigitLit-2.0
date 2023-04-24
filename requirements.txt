@@ -1,0 +1,6 @@
+Pillow
+numpy
+streamlit_drawable_canvas
+pytest-shutil
+requires.io
+pybase64

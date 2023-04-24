@@ -1,6 +1,17 @@
 import streamlit as st
-
+import os
 from page import get,set
+# Read the requirements.txt file
+# Need to run only when reboot is done
+
+# if (get() == 0):
+#     with open('requirements.txt') as f:
+#         requirements = f.read().splitlines()
+
+#     # Install the required packages using pip
+#     for package in requirements:
+#         subprocess.check_call(['pip', 'install', package])
+#     set(1)
 
 
 def page_1():
@@ -29,6 +40,10 @@ def page_2():
     set(2)
     st.title('guest')
 
+    if st.button('Return to Main Page'):
+        set(1)
+        st.experimental_rerun()
+
 def page_3():
     set(3)
     st.title('admin')
@@ -37,8 +52,8 @@ def page_3():
     print(st.secrets)
     print(st.secrets.keys())
 
-    user = st.secrets['db_username']
-    password = st.secrets['db_password']
+    user = os.environ['db_username']
+    password = os.environ['db_password']
 
 
     with st.form(key='my_form'):
@@ -52,6 +67,9 @@ def page_3():
         else:
             st.error('Login unsuccessful')
 
+    if st.button('Return to Main Page'):
+        set(1)
+        st.experimental_rerun()
 
 def page_manager():
     if (get() == 1):
