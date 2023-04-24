@@ -196,8 +196,7 @@ def admin_page():
 def page_1():
     
     st.title('DigitLit Dataset')
-    st.write(f'*{"Contains over 200 digits images"}*')
-    st.write('Digits between 10 and 19 (inclusive)')
+    st.write(f"{'Digits between 10 and 19 (inclusive)'}")
     st.session_state['present'] = 1
     
     with st.form(key='my_form'):
