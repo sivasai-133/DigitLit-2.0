@@ -208,10 +208,6 @@ def page_3():
     set(3)
     st.title('Admin')
 
-    print(st.secrets)
-    print(st.secrets.keys())
-
-    user = os.environ['db_username']
     password = os.environ['db_password']
 
     if st.button('Return to Main Page',key = 'return'):
@@ -219,14 +215,13 @@ def page_3():
         st.experimental_rerun()
 
     with st.form(key='my_form'):
-        text_input = st.text_input(label='Enter username')
-        password_input = st.text_input(label='Enter password',type='password')
+        password_input = st.text_input(label='Enter Key',type='password',disable_emoji=True)
         submit_button = st.form_submit_button(label='Submit')
 
     
 
     if submit_button:
-        if text_input == user and password_input == password:
+        if password_input == password:
             st.success('Login successful')
         else:
             st.error('Login unsuccessful')
