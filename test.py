@@ -215,7 +215,7 @@ def page_3():
         st.experimental_rerun()
 
     with st.form(key='my_form'):
-        password_input = st.text_input(label='Enter Key',type='password',disable_emoji=True)
+        password_input = st.text_input(label='Enter Key',type='password')
         submit_button = st.form_submit_button(label='Submit')
 
     
