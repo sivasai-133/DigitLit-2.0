@@ -170,7 +170,7 @@ def data_description():
  
 
 def admin_page():
-    if st.session_state['password'] == 'password':
+    if st.session_state['password'] == password:
 
         menu = ['Draw Images','Display Images', 'Data Description']
         choice = st.sidebar.selectbox('Select an option',menu)
