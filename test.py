@@ -183,6 +183,7 @@ def admin_page():
         set(1)
         st.experimental_rerun()
 
+    st.on_session_state_change(set,1)
 
 def page_1():
     
