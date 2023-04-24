@@ -238,19 +238,19 @@ def page_3():
     if submit_button:
         if password_input == password:
             st.success('Login successful')
-            admin_page()
+            set(4)
+            st.experimental_rerun()
 
         else:
             st.error('Login unsuccessful')
 
 
-def page_manager():
-    if (get() == 1):
-        page_1()
-    elif (get() == 2):
-        page_2()
-    elif (get() == 3):
-        page_3()
+if (get() == 1):
+    page_1()
+elif (get() == 2):
+    page_2()
+elif (get() == 3):
+    page_3()
+elif (get() == 4):
+    admin_page()
 
-
-page_manager()
