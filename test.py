@@ -40,7 +40,7 @@ def page_2():
     set(2)
     st.title('guest')
 
-    if st.button('Return to Main Page'):
+    if st.button('Return to Main Page',key = 'return1'):
         set(1)
         st.experimental_rerun()
 
@@ -55,15 +55,16 @@ def page_3():
     user = os.environ['db_username']
     password = os.environ['db_password']
 
+    if st.button('Return to Main Page',key = 'return'):
+        set(1)
+        st.experimental_rerun()
 
     with st.form(key='my_form'):
         text_input = st.text_input(label='Enter username')
         password_input = st.text_input(label='Enter password',type='password')
         submit_button = st.form_submit_button(label='Submit')
 
-    if st.button('Return to Main Page'):
-        set(1)
-        st.experimental_rerun()
+    
 
     if submit_button:
         if text_input == user and password_input == password:
