@@ -223,7 +223,6 @@ def page_3():
     if submit_button:
         if password_input == password:
             st.success('Login successful')
-            st.experimental_rerun()
 
             menu = ['Draw Images','Display Images', 'Data Description']
             choice = st.sidebar.selectbox('Select an option',menu)
