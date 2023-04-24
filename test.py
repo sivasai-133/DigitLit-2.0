@@ -33,13 +33,16 @@ def page_3():
     set(3)
     st.title('admin')
 
+    user = st.secrets['db_username']
+    password = st.secrets['db_password']
+
     with st.form(key='my_form'):
         text_input = st.text_input(label='Enter username')
         password_input = st.text_input(label='Enter password',type='password')
         submit_button = st.form_submit_button(label='Submit')
 
     if submit_button:
-        if text_input == st.secrets['db_username'] and password_input == st.secrets['db_password']:
+        if text_input == user and password_input == password:
             st.success('Login successful')
         else:
             st.error('Login unsuccessful')
