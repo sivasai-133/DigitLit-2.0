@@ -168,6 +168,21 @@ def data_description():
     st.write(f"Total Images: {total_count}")
  
 
+def admin_page():
+    menu = ['Draw Images','Display Images', 'Data Description']
+    choice = st.sidebar.selectbox('Select an option',menu)
+
+    if choice == 'Display Images':
+        display_images()
+    elif choice == 'Draw Images':
+        draw_images()
+    else:
+        data_description()
+
+    if st.button('Return to Main Page',key = 'return2'):
+        set(1)
+        st.experimental_rerun()
+
 
 def page_1():
     
@@ -223,16 +238,7 @@ def page_3():
     if submit_button:
         if password_input == password:
             st.success('Login successful')
-
-            menu = ['Draw Images','Display Images', 'Data Description']
-            choice = st.sidebar.selectbox('Select an option',menu)
-
-            if choice == 'Display Images':
-                display_images()
-            elif choice == 'Draw Images':
-                draw_images()
-            else:
-                data_description()
+            admin_page()
 
         else:
             st.error('Login unsuccessful')
