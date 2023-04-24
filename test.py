@@ -195,7 +195,9 @@ def admin_page():
 
 def page_1():
     
-    st.title('digit dataset')
+    st.title('DigitLit Dataset')
+    st.write(f'*{"Contains over 200 digits images"}*')
+    st.write('Digits between 10 and 19 (inclusive)')
     st.session_state['present'] = 1
     
     with st.form(key='my_form'):
@@ -237,7 +239,7 @@ def page_3():
     if 'present' not in st.session_state.keys():
         set(1)
         st.experimental_rerun()
-        
+
     set(3)
     st.title('Admin')
 
