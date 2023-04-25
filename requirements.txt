@@ -4,3 +4,4 @@ streamlit_drawable_canvas
 pytest-shutil
 requires.io
 pybase64
+pandas

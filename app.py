@@ -19,6 +19,7 @@ from PIL import Image
 from streamlit_drawable_canvas import st_canvas
 import numpy as np
 import shutil
+import pandas as pd
 import io
 import base64
 
@@ -193,8 +194,24 @@ def data_description():
     sorted_counts = sorted(subfolder_counts.items(), key=lambda x: int(x[0]))
 
     # Display the results in a Streamlit table
-    table_data = [{ f"**image count**": image_count} for subfolder_name, image_count in sorted_counts]
-    st.table(table_data,index = [subfolder_name for subfolder_name, image_count in sorted_counts])
+    table_data = [{ "number": subfolder_name ,f"**image count**": image_count} for subfolder_name, image_count in sorted_counts]
+    df = pd.DataFrame(table_data)
+
+    # CSS to inject contained in a string
+    hide_table_row_index = """
+                <style>
+                thead tr th:first-child {display:none}
+                tbody th {display:none}
+                </style>
+                """
+    # Inject CSS with Markdown
+    st.markdown(hide_table_row_index, unsafe_allow_html=True)
+
+    # Display the table
+    st.table(df)
+
+
+
     st.write(f"Total Images: {total_count}")
     
 # Add pages to the Streamlit app
