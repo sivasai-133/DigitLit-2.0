@@ -55,13 +55,9 @@ def draw_page1():
 def draw_page2():
     if 'password' not in st.session_state.keys() or st.session_state['password'] != password:
         set(1)
-    st.experimental_rerun()
+        st.experimental_rerun()
 
     st.title("Draw Images")
-
-    if st.button('Return to Main Page',key = 'return'):
-        set(1)
-        st.experimental_rerun()
     # Specify canvas parameters in application
     drawing_mode = st.sidebar.selectbox(
         "Drawing tool:", ("freedraw", "line", "circle")
@@ -203,7 +199,7 @@ def data_description():
     st.write(f"Total Images: {total_count}")
     
 # Add pages to the Streamlit app
-menu = ['Display Images','Draw Images', 'Data Description']
+menu = ['Display Images', 'Data Description','Draw Images']
 choice = st.sidebar.selectbox('Select an option',menu)
 
 if choice == 'Draw Images':
