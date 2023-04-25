@@ -58,6 +58,7 @@ def draw_page2():
         st.experimental_rerun()
 
     st.title("Draw Digits")
+    st.subheader(f"*digits from 10 to 19*")
     st.write(f'*- Draw a digit, Enter the label, Save the image*')
     # Specify canvas parameters in application
     drawing_mode = st.sidebar.selectbox(
@@ -96,7 +97,7 @@ def draw_page2():
 
     if (canvas_result.image_data is not None):
         # Save the image to a file
-        st.image(canvas_result.image_data)
+        # st.image(canvas_result.image_data)
         image = Image.fromarray(canvas_result.image_data.astype('uint8'), 'RGBA')
         grayscale_image = image.convert('L')
         path = cur+ '/dataset/' + str(validated_value) + '/'
