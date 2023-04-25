@@ -162,22 +162,12 @@ def display_images():
 
 def data_description():
     st.title("Digit Dataset")
-    st.write(f'*Image dataset for digits between 10 and 19 (inclusive)*')
-    if os.path.exists(cur+'/dataset/'):
-        dataset_folder = cur+'/dataset/'
-        if len(os.listdir(dataset_folder)) > 0:
-            buffer = io.BytesIO()
-            shutil.make_archive('dataset', 'zip', dataset_folder)
-            with open('dataset.zip', 'rb') as f:
-                buffer.write(f.read())
-            with st.container():
-                
-                st.markdown("<div style='margin-left:auto; text-align:right;'>"
-            "<p>Download Dataset: "
-            "<a href='data:application/zip;base64,{}' download='dataset.zip'>"
-            "<button>Download</button>"
-            "</a></p>"
-            "</div>".format(base64.b64encode(buffer.getvalue()).decode('utf-8')), unsafe_allow_html=True)
+    st.write(f'Image dataset for digits between 10 and 19 (inclusive)')
+
+    """
+    - The dataset contains images of  digits between 10 and 19 (inclusive).
+    - visit this [link](https://hrushi-siva-digitlit10to19digitsdataset.streamlit.app/) for more details.
+    """
 
 
     # Create a dictionary to store the image counts for each subfolder
@@ -228,6 +218,21 @@ def data_description():
     # Display the table
     st.table(df)
 
+    if os.path.exists(cur+'/dataset/'):
+        dataset_folder = cur+'/dataset/'
+        if len(os.listdir(dataset_folder)) > 0:
+            buffer = io.BytesIO()
+            shutil.make_archive('dataset', 'zip', dataset_folder)
+            with open('dataset.zip', 'rb') as f:
+                buffer.write(f.read())
+            with st.container():
+                
+                st.markdown("<div style='margin-left:auto; text-align:right;'>"
+            "<p>Download Dataset: "
+            "<a href='data:application/zip;base64,{}' download='dataset.zip'>"
+            "<button>Download</button>"
+            "</a></p>"
+            "</div>".format(base64.b64encode(buffer.getvalue()).decode('utf-8')), unsafe_allow_html=True)
 
 
     st.write(f"Total Images: {total_count}")
