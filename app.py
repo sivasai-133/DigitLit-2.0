@@ -122,9 +122,9 @@ def draw_images():
 
 
 def display_images():
-    # Add an input field to the Streamlit app
     value = None
     st.title("Display Images")
+    # Download the dataset as zip file
     if os.path.exists(cur+'/dataset/'):
         dataset_folder = cur+'/dataset/'
         if len(os.listdir(dataset_folder)) > 0:
@@ -142,7 +142,7 @@ def display_images():
             "</div>".format(base64.b64encode(buffer.getvalue()).decode('utf-8')), unsafe_allow_html=True)
 
 
-
+    # Taking the  input in the form
     with st.form(key='my_form'):
         value = st.text_input("Enter a value between 10 and 19:","1", key="input_field")
         submit_button = st.form_submit_button(label='Submit')
@@ -161,7 +161,6 @@ def display_images():
             st.warning(f"No images found for value {validated_value}.")
 
 def data_description():
-    # Create a dictionary to store the image counts for each subfolder
     st.title("Digit Dataset")
     st.write(f'*Image dataset for digits between 10 and 19 (inclusive)*')
     if os.path.exists(cur+'/dataset/'):
@@ -181,6 +180,7 @@ def data_description():
             "</div>".format(base64.b64encode(buffer.getvalue()).decode('utf-8')), unsafe_allow_html=True)
 
 
+    # Create a dictionary to store the image counts for each subfolder
     subfolder_counts = {}
 
     dataset_path = cur+'/dataset/'
