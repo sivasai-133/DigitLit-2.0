@@ -57,8 +57,7 @@ def draw_page2():
         set(1)
         st.experimental_rerun()
 
-    st.title("Draw Digits")
-    st.subheader(f"*digits from 10 to 19*")
+    st.title("Draw a Digit from 10-19")
     st.write(f'*- Draw a digit, Enter the label, Save the image*')
     # Specify canvas parameters in application
     drawing_mode = st.sidebar.selectbox(
@@ -67,22 +66,19 @@ def draw_page2():
 
     stroke_width = st.sidebar.slider("Stroke width: ", 1, 15, 6)
 
-    with st.container():
-        st.markdown("<h1 style='text-align: center;'>Streamlit Drawable Canvas</h1>", unsafe_allow_html=True)
-        canvas_result = st_canvas(
-            fill_color="rgba(0,0,0,0)",  # Fixed fill color with some opacity
-            stroke_width=stroke_width,
-            stroke_color="#000",
-            background_color= '#fff',
-            update_streamlit=True,
-            height=150,
-            width = 150,
-            drawing_mode=drawing_mode,
-            key="canvas",
-        )
-        canvas_result_container = st.container()
-        canvas_result_container.video(canvas_result.to_url(), use_column_width=True)
-        
+    # Create a canvas component
+    canvas_result = st_canvas(
+        fill_color="rgba(0,0,0,0)",  # Fixed fill color with some opacity
+        stroke_width=stroke_width,
+        stroke_color="#000",
+        background_color= '#fff',
+        update_streamlit=True,
+        height=150,
+        width = 150,
+        drawing_mode=drawing_mode,
+        key="canvas",
+    )
+
     if not os.path.exists(cur+'/dataset/'):
         os.makedirs( cur+ '/dataset/')
 
