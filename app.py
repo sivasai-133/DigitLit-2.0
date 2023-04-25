@@ -163,6 +163,23 @@ def display_images():
 def data_description():
     # Create a dictionary to store the image counts for each subfolder
     st.title("Dataset Description")
+    if os.path.exists(cur+'/dataset/'):
+        dataset_folder = cur+'/dataset/'
+        if len(os.listdir(dataset_folder)) > 0:
+            buffer = io.BytesIO()
+            shutil.make_archive('dataset', 'zip', dataset_folder)
+            with open('dataset.zip', 'rb') as f:
+                buffer.write(f.read())
+            with st.container():
+                
+                st.markdown("<div style='margin-left:auto; text-align:right;'>"
+            "<p>Download Dataset: "
+            "<a href='data:application/zip;base64,{}' download='dataset.zip'>"
+            "<button>Download</button>"
+            "</a></p>"
+            "</div>".format(base64.b64encode(buffer.getvalue()).decode('utf-8')), unsafe_allow_html=True)
+
+
     subfolder_counts = {}
 
     dataset_path = cur+'/dataset/'
