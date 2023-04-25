@@ -57,7 +57,9 @@ def draw_page2():
         set(1)
         st.experimental_rerun()
 
-    st.title("Draw Images")
+    st.title("Draw Digits")
+    st.subheader("Draw a digit and enter the label")
+    st.write(f'*- Draw a digit, Enter the label, Save the image*')
     # Specify canvas parameters in application
     drawing_mode = st.sidebar.selectbox(
         "Drawing tool:", ("freedraw", "line", "circle")
@@ -84,7 +86,7 @@ def draw_page2():
 
     # Add an input field to the Streamlit app
     value = None
-    value = st.text_input("Enter a value between 10 and 19:","1", key="input_field")
+    value = st.text_input("Enter the label for the image","1", key="input_field")
 
     # Validate the input value
     validated_value = validate_input(value)
@@ -166,7 +168,7 @@ def data_description():
 
     """
     - The dataset contains images of  digits between 10 and 19 (inclusive).
-    - visit this [link](https://hrushi-siva-digitlit10to19digitsdataset.streamlit.app/) for more details.
+    - visit this [link](https://github.com/sivasai-133/DigitLit-2.0/blob/develop/README.md/) for more details.
     """
 
 
