@@ -19,6 +19,7 @@ from PIL import Image
 from streamlit_drawable_canvas import st_canvas
 import numpy as np
 import shutil
+import pandas as pd
 import io
 import base64
 
@@ -34,14 +35,36 @@ def validate_input(value):
             return None
     return value
 
-def draw_images():
-    st.title("Draw Images")
+def draw_page1():
+    st.session_state['password'] = password
+
+    with st.form(key='my_form'):
+        password_input = st.text_input(label='Enter Key',type='password')
+        submit_button = st.form_submit_button(label='Submit')
+
+
+    if submit_button:
+        if password_input == password:
+            set(2)
+            st.experimental_rerun()
+
+        else:
+            st.error('Incorrect Key')
+
+
+def draw_page2():
+    if 'password' not in st.session_state.keys() or st.session_state['password'] != password:
+        set(1)
+        st.experimental_rerun()
+
+    st.title("Draw any Digit from 10-19")
+    st.write(f'*- Draw a digit, Enter the label, Save the image*')
     # Specify canvas parameters in application
     drawing_mode = st.sidebar.selectbox(
         "Drawing tool:", ("freedraw", "line", "circle")
     )
 
-    stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
+    stroke_width = st.sidebar.slider("Stroke width: ", 1, 15, 6)
 
     # Create a canvas component
     canvas_result = st_canvas(
@@ -62,7 +85,7 @@ def draw_images():
 
     # Add an input field to the Streamlit app
     value = None
-    value = st.text_input("Enter a value between 10 and 19:","1", key="input_field")
+    value = st.text_input("Enter the label for the image","1", key="input_field")
 
     # Validate the input value
     validated_value = validate_input(value)
@@ -73,7 +96,7 @@ def draw_images():
 
     if (canvas_result.image_data is not None):
         # Save the image to a file
-        st.image(canvas_result.image_data)
+        # st.image(canvas_result.image_data)
         image = Image.fromarray(canvas_result.image_data.astype('uint8'), 'RGBA')
         grayscale_image = image.convert('L')
         path = cur+ '/dataset/' + str(validated_value) + '/'
@@ -91,10 +114,18 @@ def draw_images():
         st.warning("Please draw something on the canvas before saving.")
 
 
+def draw_images():
+    
+    if get() == 1:
+        draw_page1()
+    elif get() == 2:
+        draw_page2()
+
+
 def display_images():
-    # Add an input field to the Streamlit app
     value = None
     st.title("Display Images")
+    # Download the dataset as zip file
     if os.path.exists(cur+'/dataset/'):
         dataset_folder = cur+'/dataset/'
         if len(os.listdir(dataset_folder)) > 0:
@@ -112,7 +143,7 @@ def display_images():
             "</div>".format(base64.b64encode(buffer.getvalue()).decode('utf-8')), unsafe_allow_html=True)
 
 
-
+    # Taking the  input in the form
     with st.form(key='my_form'):
         value = st.text_input("Enter a value between 10 and 19:","1", key="input_field")
         submit_button = st.form_submit_button(label='Submit')
@@ -131,8 +162,16 @@ def display_images():
             st.warning(f"No images found for value {validated_value}.")
 
 def data_description():
+    st.title("DigitLit Dataset")
+    st.write(f'*- Dataset created using StreamLit*')
+
+    """
+    - The dataset contains images of  digits between 10 and 19 (inclusive).
+    - visit this [link](https://github.com/sivasai-133/DigitLit-2.0/blob/develop/README.md/) for more details.
+    """
+
+
     # Create a dictionary to store the image counts for each subfolder
-    st.title("Dataset Description")
     subfolder_counts = {}
 
     dataset_path = cur+'/dataset/'
@@ -164,114 +203,48 @@ def data_description():
     sorted_counts = sorted(subfolder_counts.items(), key=lambda x: int(x[0]))
 
     # Display the results in a Streamlit table
-    table_data = [{"Number": subfolder_name, "Image Count": image_count} for subfolder_name, image_count in sorted_counts]
-    st.table(table_data)
+    table_data = [{ "number": subfolder_name ,f"image count": image_count} for subfolder_name, image_count in sorted_counts]
+    df = pd.DataFrame(table_data)
+
+    # CSS to inject contained in a string
+    hide_table_row_index = """
+                <style>
+                thead tr th:first-child {display:none}
+                tbody th {display:none}
+                </style>
+                """
+    # Inject CSS with Markdown
+    st.markdown(hide_table_row_index, unsafe_allow_html=True)
+
+    # Display the table
+    st.table(df)
+
+    if os.path.exists(cur+'/dataset/'):
+        dataset_folder = cur+'/dataset/'
+        if len(os.listdir(dataset_folder)) > 0:
+            buffer = io.BytesIO()
+            shutil.make_archive('dataset', 'zip', dataset_folder)
+            with open('dataset.zip', 'rb') as f:
+                buffer.write(f.read())
+            with st.container():
+                
+                st.markdown("<div style='margin-left:auto; text-align:right;'>"
+            "<p>Download Dataset: "
+            "<a href='data:application/zip;base64,{}' download='dataset.zip'>"
+            "<button>Download</button>"
+            "</a></p>"
+            "</div>".format(base64.b64encode(buffer.getvalue()).decode('utf-8')), unsafe_allow_html=True)
+
+
     st.write(f"Total Images: {total_count}")
- 
-
-def admin_page():
-    if 'present' not in st.session_state.keys():
-        set(1)
-        st.experimental_rerun()
-
-    if 'password' in st.session_state.keys() and st.session_state['password'] == password:
-
-        menu = ['Draw Images','Display Images', 'Data Description']
-        choice = st.sidebar.selectbox('Select an option',menu)
-
-        if choice == 'Display Images':
-            display_images()
-        elif choice == 'Draw Images':
-            draw_images()
-        else:
-            data_description()
-
-        if st.button('Return to Main Page',key = 'return2'):
-            set(1)
-            st.experimental_rerun()
-    else:
-        set(1)
-        st.experimental_rerun()
-
-def page_1():
     
-    st.title('Digit Dataset')
-    st.write(f"*{'Images for digits between 10 and 19 (inclusive)'}*")
-    st.session_state['present'] = 1
-    
-    with st.form(key='my_form'):
-        menu = ['--select--','guest','admin']
-        choice = st.selectbox('Select an option',menu)
-        if choice == 'guest':
-            set(2)
-        if choice == 'admin':
-            set(3)
-        submit_button = st.form_submit_button(label='Submit')
-    
-    if submit_button:
-        if choice == '--select--':
-            st.error('Please select an option')
-        else:
-            st.success('Login successful')
-            st.experimental_rerun()
+# Add pages to the Streamlit app
+menu = ['Data Description','Display Images', 'Draw Images']
+choice = st.sidebar.selectbox('Select an option',menu)
 
-
-
-def page_2():
-    if 'present' not in st.session_state.keys():
-        set(1)
-        st.experimental_rerun()
-    
-    menu = ['Display Images', 'Data Description']
-    choice = st.sidebar.selectbox('Select an option',menu)
-
-    if choice == 'Display Images':
-        display_images()
-    else:
-        data_description()
-
-    if st.button('Return to Main Page',key = 'return1'):
-        set(1)
-        st.experimental_rerun()
-
-def page_3():
-    if 'present' not in st.session_state.keys():
-        set(1)
-        st.experimental_rerun()
-
-    set(3)
-    st.title('Admin')
-
-    
-
-    st.session_state['password'] = password
-
-    if st.button('Return to Main Page',key = 'return'):
-        set(1)
-        st.experimental_rerun()
-
-    with st.form(key='my_form'):
-        password_input = st.text_input(label='Enter Key',type='password')
-        submit_button = st.form_submit_button(label='Submit')
-
-    
-
-    if submit_button:
-        if password_input == password:
-            st.success('Login successful')
-            set(4)
-            st.experimental_rerun()
-
-        else:
-            st.error('Login unsuccessful')
-
-
-if (get() == 1):
-    page_1()
-elif (get() == 2):
-    page_2()
-elif (get() == 3):
-    page_3()
-elif (get() == 4):
-    admin_page()
-
+if choice == 'Draw Images':
+    draw_images()
+elif choice == 'Display Images':
+    display_images()
+else:
+    data_description()
