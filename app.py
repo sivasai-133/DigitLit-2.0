@@ -161,8 +161,8 @@ def display_images():
             st.warning(f"No images found for value {validated_value}.")
 
 def data_description():
-    st.title("Digit Dataset")
-    st.write(f'Image dataset for digits between 10 and 19 (inclusive)')
+    st.title("DigitLit Dataset")
+    st.write(f'*- Dataset created using StreamLit*')
 
     """
     - The dataset contains images of  digits between 10 and 19 (inclusive).
