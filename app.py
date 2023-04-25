@@ -194,7 +194,7 @@ def data_description():
     sorted_counts = sorted(subfolder_counts.items(), key=lambda x: int(x[0]))
 
     # Display the results in a Streamlit table
-    table_data = [{ "number": subfolder_name ,f"**image count**": image_count} for subfolder_name, image_count in sorted_counts]
+    table_data = [{ "number": subfolder_name ,f"image count": image_count} for subfolder_name, image_count in sorted_counts]
     df = pd.DataFrame(table_data)
 
     # CSS to inject contained in a string
