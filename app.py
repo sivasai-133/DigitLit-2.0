@@ -34,8 +34,35 @@ def validate_input(value):
             return None
     return value
 
-def draw_images():
+def draw_page1():
+    st.session_state['password'] = password
+
+    with st.form(key='my_form'):
+        password_input = st.text_input(label='Enter Key',type='password')
+        submit_button = st.form_submit_button(label='Submit')
+
+
+    if submit_button:
+        if password_input == password:
+            st.success('Login successful')
+            set(4)
+            st.experimental_rerun()
+
+        else:
+            st.error('Login unsuccessful')
+
+
+def draw_page2():
+
+     if 'password' not in st.session_state.keys() or st.session_state['password'] != password:
+        set(1)
+        st.experimental_rerun()
+
     st.title("Draw Images")
+
+    if st.button('Return to Main Page',key = 'return'):
+        set(1)
+        st.experimental_rerun()
     # Specify canvas parameters in application
     drawing_mode = st.sidebar.selectbox(
         "Drawing tool:", ("freedraw", "line", "circle")
@@ -89,6 +116,14 @@ def draw_images():
 
     else:
         st.warning("Please draw something on the canvas before saving.")
+
+
+def draw_images():
+    
+    if get() == 1:
+        draw_page1()
+    elif get() == 2:
+        draw_page2()
 
 
 def display_images():
@@ -164,114 +199,18 @@ def data_description():
     sorted_counts = sorted(subfolder_counts.items(), key=lambda x: int(x[0]))
 
     # Display the results in a Streamlit table
-    table_data = [{"Number": subfolder_name, "Image Count": image_count} for subfolder_name, image_count in sorted_counts]
+    st.write("## Image Counts by Subfolder")
+    table_data = [{"Subfolder": subfolder_name, "Image Count": image_count} for subfolder_name, image_count in sorted_counts]
     st.table(table_data)
     st.write(f"Total Images: {total_count}")
- 
-
-def admin_page():
-    if 'present' not in st.session_state.keys():
-        set(1)
-        st.experimental_rerun()
-
-    if 'password' in st.session_state.keys() and st.session_state['password'] == password:
-
-        menu = ['Draw Images','Display Images', 'Data Description']
-        choice = st.sidebar.selectbox('Select an option',menu)
-
-        if choice == 'Display Images':
-            display_images()
-        elif choice == 'Draw Images':
-            draw_images()
-        else:
-            data_description()
-
-        if st.button('Return to Main Page',key = 'return2'):
-            set(1)
-            st.experimental_rerun()
-    else:
-        set(1)
-        st.experimental_rerun()
-
-def page_1():
     
-    st.title('Digit Dataset')
-    st.write(f"*{'Images for digits between 10 and 19 (inclusive)'}*")
-    st.session_state['present'] = 1
-    
-    with st.form(key='my_form'):
-        menu = ['--select--','guest','admin']
-        choice = st.selectbox('Select an option',menu)
-        if choice == 'guest':
-            set(2)
-        if choice == 'admin':
-            set(3)
-        submit_button = st.form_submit_button(label='Submit')
-    
-    if submit_button:
-        if choice == '--select--':
-            st.error('Please select an option')
-        else:
-            st.success('Login successful')
-            st.experimental_rerun()
+# Add pages to the Streamlit app
+menu = ['Display Images','Draw Images', 'Data Description']
+choice = st.sidebar.selectbox('Select an option',menu)
 
-
-
-def page_2():
-    if 'present' not in st.session_state.keys():
-        set(1)
-        st.experimental_rerun()
-    
-    menu = ['Display Images', 'Data Description']
-    choice = st.sidebar.selectbox('Select an option',menu)
-
-    if choice == 'Display Images':
-        display_images()
-    else:
-        data_description()
-
-    if st.button('Return to Main Page',key = 'return1'):
-        set(1)
-        st.experimental_rerun()
-
-def page_3():
-    if 'present' not in st.session_state.keys():
-        set(1)
-        st.experimental_rerun()
-
-    set(3)
-    st.title('Admin')
-
-    
-
-    st.session_state['password'] = password
-
-    if st.button('Return to Main Page',key = 'return'):
-        set(1)
-        st.experimental_rerun()
-
-    with st.form(key='my_form'):
-        password_input = st.text_input(label='Enter Key',type='password')
-        submit_button = st.form_submit_button(label='Submit')
-
-    
-
-    if submit_button:
-        if password_input == password:
-            st.success('Login successful')
-            set(4)
-            st.experimental_rerun()
-
-        else:
-            st.error('Login unsuccessful')
-
-
-if (get() == 1):
-    page_1()
-elif (get() == 2):
-    page_2()
-elif (get() == 3):
-    page_3()
-elif (get() == 4):
-    admin_page()
-
+if choice == 'Draw Images':
+    draw_images()
+elif choice == 'Display Images':
+    display_images()
+else:
+    data_description()
