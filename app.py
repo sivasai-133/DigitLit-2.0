@@ -53,10 +53,9 @@ def draw_page1():
 
 
 def draw_page2():
-
-     if 'password' not in st.session_state.keys() or st.session_state['password'] != password:
-        set(1)
-        st.experimental_rerun()
+    if 'password' not in st.session_state.keys() or st.session_state['password'] != password:
+    set(1)
+    st.experimental_rerun()
 
     st.title("Draw Images")
 
