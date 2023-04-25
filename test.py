@@ -4,7 +4,7 @@ from page import get,set
 from flag import get_,set_
 import subprocess
 # Read the requirements.txt file
-# Need to run only when reboot is done
+# Need to run only when app is rebooted
 
 # if (get_() == 0):
 #     with open('requirements.txt') as f:
