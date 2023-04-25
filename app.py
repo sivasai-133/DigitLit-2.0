@@ -58,7 +58,6 @@ def draw_page2():
         st.experimental_rerun()
 
     st.title("Draw Digits")
-    st.subheader("Draw a digit and enter the label")
     st.write(f'*- Draw a digit, Enter the label, Save the image*')
     # Specify canvas parameters in application
     drawing_mode = st.sidebar.selectbox(
