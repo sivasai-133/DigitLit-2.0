@@ -44,12 +44,11 @@ def draw_page1():
 
     if submit_button:
         if password_input == password:
-            st.success('Login successful')
             set(2)
             st.experimental_rerun()
 
         else:
-            st.error('Login unsuccessful')
+            st.error('Incorrect Key')
 
 
 def draw_page2():
@@ -63,7 +62,7 @@ def draw_page2():
         "Drawing tool:", ("freedraw", "line", "circle")
     )
 
-    stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
+    stroke_width = st.sidebar.slider("Stroke width: ", 1, 15, 6)
 
     # Create a canvas component
     canvas_result = st_canvas(
