@@ -162,7 +162,8 @@ def display_images():
 
 def data_description():
     # Create a dictionary to store the image counts for each subfolder
-    st.title("Dataset Description")
+    st.title("Digit Dataset")
+    st.write(f'*Image dataset for digits between 10 and 19 (inclusive)*')
     if os.path.exists(cur+'/dataset/'):
         dataset_folder = cur+'/dataset/'
         if len(os.listdir(dataset_folder)) > 0:
