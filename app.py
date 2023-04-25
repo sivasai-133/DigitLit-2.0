@@ -67,19 +67,22 @@ def draw_page2():
 
     stroke_width = st.sidebar.slider("Stroke width: ", 1, 15, 6)
 
-    # Create a canvas component
-    canvas_result = st_canvas(
-        fill_color="rgba(0,0,0,0)",  # Fixed fill color with some opacity
-        stroke_width=stroke_width,
-        stroke_color="#000",
-        background_color= '#fff',
-        update_streamlit=True,
-        height=150,
-        width = 150,
-        drawing_mode=drawing_mode,
-        key="canvas",
-    )
-
+    with st.container():
+        st.markdown("<h1 style='text-align: center;'>Streamlit Drawable Canvas</h1>", unsafe_allow_html=True)
+        canvas_result = st_canvas(
+            fill_color="rgba(0,0,0,0)",  # Fixed fill color with some opacity
+            stroke_width=stroke_width,
+            stroke_color="#000",
+            background_color= '#fff',
+            update_streamlit=True,
+            height=150,
+            width = 150,
+            drawing_mode=drawing_mode,
+            key="canvas",
+        )
+        canvas_result_container = st.container()
+        canvas_result_container.video(canvas_result.to_url(), use_column_width=True)
+        
     if not os.path.exists(cur+'/dataset/'):
         os.makedirs( cur+ '/dataset/')
 
