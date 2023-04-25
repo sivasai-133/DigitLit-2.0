@@ -193,8 +193,8 @@ def data_description():
     sorted_counts = sorted(subfolder_counts.items(), key=lambda x: int(x[0]))
 
     # Display the results in a Streamlit table
-    table_data = [{"number": subfolder_name, "image count": image_count} for subfolder_name, image_count in sorted_counts]
-    st.table(table_data)
+    table_data = [{f"**number**": subfolder_name, f"**image count**": image_count} for subfolder_name, image_count in sorted_counts]
+    st.table(table_data,index = False )
     st.write(f"Total Images: {total_count}")
     
 # Add pages to the Streamlit app
