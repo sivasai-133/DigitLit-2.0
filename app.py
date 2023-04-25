@@ -45,7 +45,7 @@ def draw_page1():
     if submit_button:
         if password_input == password:
             st.success('Login successful')
-            set(4)
+            set(2)
             st.experimental_rerun()
 
         else:
@@ -198,8 +198,7 @@ def data_description():
     sorted_counts = sorted(subfolder_counts.items(), key=lambda x: int(x[0]))
 
     # Display the results in a Streamlit table
-    st.write("## Image Counts by Subfolder")
-    table_data = [{"Subfolder": subfolder_name, "Image Count": image_count} for subfolder_name, image_count in sorted_counts]
+    table_data = [{"number": subfolder_name, "image count": image_count} for subfolder_name, image_count in sorted_counts]
     st.table(table_data)
     st.write(f"Total Images: {total_count}")
     
