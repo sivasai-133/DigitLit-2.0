@@ -167,7 +167,8 @@ def data_description():
 
     """
     - The dataset contains images of  digits between 10 and 19 (inclusive).
-    - visit this [link](https://github.com/sivasai-133/DigitLit-2.0/blob/develop/README.md/) for more details.
+    - See the sidebar to navigate to the different pages.
+    - Visit this [link](https://github.com/sivasai-133/DigitLit-2.0/blob/develop/README.md/) for more details.
     """
 
 
