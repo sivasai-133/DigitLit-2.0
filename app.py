@@ -233,7 +233,7 @@ def data_description():
     st.write(f"Total Images: {total_count}")
     
 # Add pages to the Streamlit app
-menu = ['Display Images', 'Data Description','Draw Images']
+menu = ['Data Description','Display Images', 'Draw Images']
 choice = st.sidebar.selectbox('Select an option',menu)
 
 if choice == 'Draw Images':
